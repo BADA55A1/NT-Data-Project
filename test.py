@@ -65,7 +65,7 @@ def node_to_int(node):
     int_value = 0
     pow = 0
     for i in node.s:
-        int_value += float(i) * 10.0 ** pow
+        int_value += float(i) * p.size ** pow
         pow += 1
     return int_value
 
@@ -74,8 +74,8 @@ def print_fittnes_landscape():
     nodes = l.nodes
     o_nodes = l.nodes
     neighbour_points = [i for node in l.nodes for i in node.get_neighbors()]
-    for p in range(1, 20):
-        neighbour_points.extend([i for node in l.nodes for i in node.get_deep_neighbours(p)])
+    for d in range(1, 9):
+        neighbour_points.extend([i for node in l.nodes for i in node.get_deep_neighbours(d)])
 
     nodes = [*nodes, *neighbour_points]
     values = [i.fitness() for i in nodes]
@@ -89,6 +89,7 @@ def print_fittnes_landscape():
     plt.figure()
     plt.plot(nodes, values)
     plt.plot(o_nodes, o_values, '*')
+    #plt.xscale('log', base=p.size)
     plt.show()
 
 
