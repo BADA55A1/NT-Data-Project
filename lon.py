@@ -16,7 +16,7 @@ class LON:
 				print('generating node %d, attempt %d' % (i_n, i_a), end='\r')
 
 				s = self.Solution(self.problem)
-				s = s.apply_2_opt()
+				s = s.get_2_opt()
 				if s.is_local_optimum() and not(s in self.nodes):
 					self.nodes.append(s)
 					break
@@ -27,13 +27,12 @@ class LON:
 		for node in self.nodes:
 			kick_moves = I_edges
 			while kick_moves > 0:
-
 				n = node.copy()
-				n = n.apply_random_kick()
-				n = n.apply_1st_impr_2_opt()
+				n = n.get_random_kick()
+				n = n.get_1st_impr_2_opt()
 				
 				if n in self.nodes:
-					kick_moves -= 0
+					kick_moves -= 1
 					self.node_edge_map[self.nodes.index(node)][self.nodes.index(n)] += 1
 					#ToDo Edges
 
