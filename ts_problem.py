@@ -57,8 +57,20 @@ class TSSolution(problem.Solution):
 	# perform a simplifyed 2-opt solution optimization 
 	# (first-improving move is chosen)
 	def apply_1st_impr_2_opt(self):
-		pass
+		apply_2_opt(self)
 
 	# perform two random 2-change moves performed one-by-one
 	def apply_random_kick(self):
-		pass
+		for _ in range(2): # 2 moves
+			# swap nearest in list
+			place = np.random.randint(self.problem.size)
+			self.s[place-1], self.s[place] = self.s[place], self.s[place-1]
+		
+			# alternative: swap two random ones
+			place_a = np.random.randint(self.problem.size)
+			place_b = place_a
+			while place_b == place_a:
+				place_b = np.random.randint(self.problem.size)
+			self.s[place_a], self.s[place_b] = self.s[place_b], self.s[place_a]
+
+

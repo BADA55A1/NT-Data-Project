@@ -11,3 +11,11 @@ print(sol.fitness())
 
 sol2 = ts_problem.TSSolution(p)
 print(sol == sol2)
+
+import lon
+
+l = lon.LON(p, ts_problem.TSSolution)
+l.generate_nodes(10, 10)
+
+for n in l.nodes:
+	print(n.s)
