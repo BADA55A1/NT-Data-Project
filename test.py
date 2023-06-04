@@ -49,6 +49,17 @@ print("generated nodes")
 print("generating edges")
 l.generate_edges(10)
 
+print('edges:')
+for edge in l.edges:
+	print(
+		'  E(%d, %d), weight: %d' % 
+		(
+			l.nodes.index(edge.from_node),
+			l.nodes.index(edge.to_node),
+			edge.weight
+		)
+	)
+
 def node_to_int(node):
     int_value = 0
     pow = 0
