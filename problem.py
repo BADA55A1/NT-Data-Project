@@ -10,6 +10,9 @@ class Solution:
 	def __eq__(self, other):
 		return True
 
+	def copy(self):
+		return self
+
 	# Quality function (less == better), Real number [float/int]
 	def fitness(self):
 		return 0 
