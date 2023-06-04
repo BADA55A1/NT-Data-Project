@@ -24,7 +24,7 @@ import lon
 
 class TSSolutionWithSimpleNeighbour(ts_problem.TSSolution):
     def __init__(self, problem, solution=None, neighbourhood_fn=ts_problem.neighbourhood_fn):
-        super.__init__(self, problem,
+        return super().__init__(problem,
                        solution=solution, neighbourhood_fn=neighbourhood_fn)
 
 
@@ -33,3 +33,5 @@ l.generate_nodes(10, 10)
 
 for n in l.nodes:
     print(n.s)
+
+l.generate_edges(5)

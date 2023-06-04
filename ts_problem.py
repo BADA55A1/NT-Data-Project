@@ -41,7 +41,7 @@ class TSSolution(problem.Solution):
         return (self.problem is other.problem) and (self.s == other.s).all()
 
     def __hash__(self):
-        return self.problem, self.s
+        return hash((self.problem, str(self.s)))
 
     def copy(self):
         return TSSolution(
@@ -76,6 +76,7 @@ class TSSolution(problem.Solution):
             neighbor_list = [item for sublist in new_neighbor for item in sublist]
             # filter duplicates
             neighbor_list = list(set(neighbor_list))
+        return neighbor_list
 
     # perform a 2-opt solution optimization
     def get_2_opt(self, search_depth=1):
@@ -90,7 +91,7 @@ class TSSolution(problem.Solution):
 
     # perform a simplifyed 2-opt solution optimization
     # (first-improving move is chosen)
-    def apply_1st_impr_2_opt(self, search_depth=1):
+    def get_1st_impr_2_opt(self, search_depth=1):
         neighbor_list = self.get_deep_neighbours(search_depth)
         for i in neighbor_list:
             if i.fitness() > self.fitness():
@@ -99,13 +100,11 @@ class TSSolution(problem.Solution):
         return self
 
     # perform two random 2-change moves performed one-by-one
-
-
-def get_random_kick(self, number_of_kicks=2):
-    new_el = self
-    for i in range(number_of_kicks):
-        new_el = random.choice(new_el.get_neighbors())
-    return new_el
+    def get_random_kick(self, number_of_kicks=2):
+        new_el = self
+        for i in range(number_of_kicks):
+            new_el = random.choice(new_el.get_neighbors())
+        return new_el
 
 
 def neighbourhood_fn(ts_solution: TSSolution):
