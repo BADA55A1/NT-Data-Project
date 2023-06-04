@@ -6,6 +6,10 @@ class Solution:
 	def __init__(self, problem):
 		self._problem = problem
 
+	# checks if solution is equal to another
+	def __eq__(self, other):
+		return True
+
 	# Quality function (less == better), Real number [float/int]
 	def fitness(self):
 		return 0 

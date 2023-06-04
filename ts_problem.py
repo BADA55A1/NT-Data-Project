@@ -23,15 +23,19 @@ class TSProblem(problem.Problem):
 class TSSolution(problem.Solution):
 	# Generates random solution based on problem
 	def __init__(self, problem):
-		self._problem = problem
-		self.s = np.arange(self._problem.size)
+		self.problem = problem
+		self.s = np.arange(self.problem.size)
 		np.random.shuffle(self.s)
+	
+	# checks if solution is equal to another
+	def __eq__(self, other):
+		return (self.problem is other.problem) and (self.s == other.s).all()
 
 	# Quality function (less == better), Real number [float/int]
 	def fitness(self):
 		path_distance = 0
-		for i in range(self._problem.size):
-			path_distance += self._problem.distances[self.s[i-1]][self.s[i]]
+		for i in range(self.problem.size):
+			path_distance += self.problem.distances[self.s[i-1]][self.s[i]]
 		return path_distance
 
 	# returns a list of 2-change neighbor solutions [list<Solution>]
@@ -40,6 +44,10 @@ class TSSolution(problem.Solution):
 
 	# checks if solution is better than it's neighbors [bool]
 	def is_local_optimum(self):
+		this_fitness = self.fitness()
+		for n_sol in self.get_neighbors():
+			if this_fitness < n_sol.fitness():
+				return False
 		return True
 
 	# perform a 2-opt solution optimization

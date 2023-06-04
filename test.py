@@ -8,3 +8,6 @@ print(p.distances)
 sol = ts_problem.TSSolution(p)
 print(sol.s)
 print(sol.fitness())
+
+sol2 = ts_problem.TSSolution(p)
+print(sol == sol2)
