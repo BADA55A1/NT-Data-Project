@@ -25,16 +25,25 @@ class LON:
 	def generate_edges(self, I_edges):
 		self.node_edge_map = np.zeros((len(self.nodes), len(self.nodes)))
 		for node in self.nodes:
-			kick_moves = I_edges
-			while kick_moves > 0:
+			kick_moves = 2
+			i = I_edges
+			while i > 0:
+				i -= 1
+				
 				n = node.copy()
-				n = n.get_random_kick()
+				n = n.get_random_kick(kick_moves)
 				n = n.get_1st_impr_2_opt()
 				
 				if n in self.nodes:
-					kick_moves -= 1
+					print('found edge')
+					print(n.s)
+					print(kick_moves)
 					self.node_edge_map[self.nodes.index(node)][self.nodes.index(n)] += 1
 					#ToDo Edges
+				else:
+					kick_moves += 1
+				
+					
 
 
 
