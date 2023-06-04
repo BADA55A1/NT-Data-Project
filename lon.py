@@ -5,10 +5,10 @@ class Edge:
 		self.from_node = from_node
 		self.to_node = to_node
 		self.weight = 1
-	
+
 	def __eq__(self, other):
 		return (self.from_node == other.from_node) and (self.to_node == other.to_node)
-	
+
 	def weight_increment(self):
 		self.weight += 1
 
@@ -44,10 +44,10 @@ class LON:
 				n = node.copy()
 				n = n.get_random_kick(kick_moves)
 				n = n.get_1st_impr_2_opt()
-				
+
 				if n in self.nodes:
 					print(
-						'found edge s(%d, %d), kick moves: %d' % 
+						'found edge s(%d, %d), kick moves: %d' %
 						(self.nodes.index(node), self.nodes.index(n), kick_moves)
 					)
 					self.node_edge_map[self.nodes.index(node)][self.nodes.index(n)] += 1
@@ -60,8 +60,8 @@ class LON:
 						self.edges.append(edge)
 				else:
 					kick_moves += 1
-				
-					
+
+
 
 
 

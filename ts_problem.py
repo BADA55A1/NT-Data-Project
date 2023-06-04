@@ -65,7 +65,7 @@ class TSSolution(problem.Solution):
     def is_local_optimum(self):
         this_fitness = self.fitness()
         for n_sol in self.get_neighbors():
-            if this_fitness < n_sol.fitness():
+            if this_fitness > n_sol.fitness():
                 return False
         return True
 
@@ -80,24 +80,27 @@ class TSSolution(problem.Solution):
 
     # perform a 2-opt solution optimization
     def get_2_opt(self, search_depth=1):
-        neighbor_list = self.get_deep_neighbours(search_depth)
-        solutions_fitness = [i.fitness() for i in neighbor_list]
-        max_fitness = max(solutions_fitness)
-        if max_fitness > self.fitness():
-            index_of_max_fitness = solutions_fitness.index(max_fitness)  # TODO not efficient
-            return neighbor_list[index_of_max_fitness]
-        else:
-            return self
+        optimum = self
+        while not optimum.is_local_optimum():
+            neighbor_list = optimum.get_deep_neighbours(search_depth)
+            solutions_fitness = [i.fitness() for i in neighbor_list]
+            min_fitness = min(solutions_fitness)
+            if min_fitness < optimum.fitness():
+                index_of_min_fitness = solutions_fitness.index(min_fitness)  # TODO not efficient
+                optimum = neighbor_list[index_of_min_fitness]
+        return optimum
 
     # perform a simplifyed 2-opt solution optimization
     # (first-improving move is chosen)
     def get_1st_impr_2_opt(self, search_depth=1):
-        neighbor_list = self.get_deep_neighbours(search_depth)
-        for i in neighbor_list:
-            if i.fitness() > self.fitness():
-                return i
-        # otherwise
-        return self
+        optimum = self
+        while not optimum.is_local_optimum():
+            neighbor_list = optimum.get_deep_neighbours(search_depth)
+            for i in neighbor_list:
+                if i.fitness() < optimum.fitness():
+                    optimum = i
+            # otherwise
+        return optimum
 
     # perform two random 2-change moves performed one-by-one
     def get_random_kick(self, number_of_kicks=2):
