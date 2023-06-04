@@ -5,12 +5,12 @@ def forward_run(current_solution):
     for i in reversed(range(len(new_solution))):
         if new_solution[i] < max_var:
             increment_value = None
-            for increment in sorted(new_solution[i+1:]):
+            for increment in sorted(new_solution[i + 1:]):
                 if increment_value is None:
                     if increment > new_solution[i]:
                         increment_value = increment
                 else:
-                    if increment < increment_value and increment> new_solution[i]:
+                    if increment < increment_value and increment > new_solution[i]:
                         increment_value = increment
 
             if increment_value:
@@ -32,11 +32,11 @@ def dim_1_neighbourhood(current_solution):
     if back_run is not None:
         back_run = list(reversed(back_run))
     return [back_run,
-      forward_run(current_solution)]
+            forward_run(current_solution)]
 
 
 def test():
-    example_solution = [1, 2, 3, 5] # is missing as is the starting and end point
+    example_solution = [1, 2, 3, 5]  # is missing as is the starting and end point
     new_solution = (None, [*example_solution])
 
     solution_len = 0
@@ -59,6 +59,4 @@ def test():
         if new_solution[0] is None:
             break
     print(solution_len)
-
-
-test()
+#test()
