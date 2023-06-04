@@ -1,4 +1,4 @@
-def forward_run2(current_solution):
+def forward_run(current_solution):
     new_solution = [*current_solution]
     max_var = max(new_solution)
     increment_index = None
@@ -27,30 +27,12 @@ def forward_run2(current_solution):
         return None
 
 
-def forward_run(current_solution):
-    swap_candidate = None
-    for i in range(len(current_solution) - 1):
-        if current_solution:
-            a, b = current_solution[i], current_solution[i + 1]
-            if a < b:
-                swap_candidate = (i, i + 1)
-    if swap_candidate is not None:
-        swapped_solution = [*current_solution]
-        swapped_solution[swap_candidate[0]] = current_solution[swap_candidate[1]]
-        swapped_solution[swap_candidate[1]] = current_solution[swap_candidate[0]]
-        # sort rest of array
-        swapped_solution[swap_candidate[1]:] = sorted(swapped_solution[swap_candidate[1]:])
-        return swapped_solution
-    else:
-        return None
-
-
 def dim_1_neighbourhood(current_solution):
-    back_run = forward_run2(list(reversed(current_solution)))
+    back_run = forward_run(list(reversed(current_solution)))
     if back_run is not None:
         back_run = list(reversed(back_run))
     return [back_run,
-      forward_run2(current_solution)]
+      forward_run(current_solution)]
 
 
 def test():

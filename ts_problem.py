@@ -40,7 +40,7 @@ class TSSolution(problem.Solution):
 
 	# returns a list of 2-change neighbor solutions [list<Solution>]
 	def get_neighbors(self):
-		return []
+		return
 
 	# checks if solution is better than it's neighbors [bool]
 	def is_local_optimum(self):
