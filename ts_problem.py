@@ -18,18 +18,21 @@ class TSProblem(problem.Problem):
 		)
 		for i in range(size):
 			self.distances[i][i] = 0
-		
-
 
 
 class TSSolution(problem.Solution):
 	# Generates random solution based on problem
 	def __init__(self, problem):
 		self._problem = problem
+		self.s = np.arange(self._problem.size)
+		np.random.shuffle(self.s)
 
 	# Quality function (less == better), Real number [float/int]
 	def fitness(self):
-		return 0 
+		path_distance = 0
+		for i in range(self._problem.size):
+			path_distance += self._problem.distances[self.s[i-1]][self.s[i]]
+		return path_distance
 
 	# returns a list of 2-change neighbor solutions [list<Solution>]
 	def get_neighbors(self):
