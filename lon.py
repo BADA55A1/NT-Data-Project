@@ -1,7 +1,17 @@
 import numpy as np
 
 class Edge:
-	pass
+	def __init__(self, from_node, to_node):
+		self.from_node = from_node
+		self.to_node = to_node
+		self.weight = 1
+	
+	def __eq__(self, other):
+		return (self.from_node == other.from_node) and (self.to_node == other.to_node)
+	
+	def weight_increment(self):
+		self.weight += 1
+
 
 class LON:
 	def __init__(self, problem, solution_type):
@@ -9,6 +19,7 @@ class LON:
 		self.Solution = solution_type
 		self.nodes = []
 		self.node_edge_map = None
+		self.edges = []
 
 	def generate_nodes(self, I_nodes, I_attempts):
 		for i_n in range(I_nodes):
@@ -40,7 +51,13 @@ class LON:
 						(self.nodes.index(node), self.nodes.index(n), kick_moves)
 					)
 					self.node_edge_map[self.nodes.index(node)][self.nodes.index(n)] += 1
-					#ToDo Edges
+
+					# Edge class
+					edge = Edge(node, n)
+					if edge in self.edges:
+						self.edges[self.edges.index(edge)].weight_increment()
+					else:
+						self.edges.append(edge)
 				else:
 					kick_moves += 1
 				

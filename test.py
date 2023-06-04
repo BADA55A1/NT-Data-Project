@@ -33,10 +33,19 @@ print("generating nodes")
 l.generate_nodes(1000, 100)
 print("generated nodes")
 
-for n in l.nodes:
-    print(n.s)
+# for n in l.nodes:
+#     print(n.s)
 
-print("generating edges")
+print("generating edges:")
 l.generate_edges(20)
 
-print(l.node_edge_map)
+print('Edges:')
+for edge in l.edges:
+	print(
+		'  E(%d, %d), weight: %d' % 
+		(
+			l.nodes.index(edge.from_node),
+			l.nodes.index(edge.to_node),
+			edge.weight
+		)
+	)
