@@ -22,10 +22,13 @@ class TSProblem(problem.Problem):
 
 class TSSolution(problem.Solution):
 	# Generates random solution based on problem
-	def __init__(self, problem):
+	def __init__(self, problem, solution = None):
 		self.problem = problem
-		self.s = np.arange(self.problem.size)
-		np.random.shuffle(self.s)
+		if solution is None:
+			self.s = np.arange(self.problem.size)
+			np.random.shuffle(self.s)
+		else:
+			self.s = solution
 	
 	# checks if solution is equal to another
 	def __eq__(self, other):
