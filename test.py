@@ -71,11 +71,11 @@ def node_to_int(node):
 def print_fittnes_landscape():
     nodes = l.nodes
     o_nodes = l.nodes
-    nodes_of_nodes = [i for node in l.nodes for i in node.get_neighbors()]
-    nodes_of_nodes_2 = [i for node in l.nodes for i in node.get_deep_neighbours(2)]
-    nodes_of_nodes_3 = [i for node in l.nodes for i in node.get_deep_neighbours(3)]
+    neighbour_points = [i for node in l.nodes for i in node.get_neighbors()]
+    for p in range(1,20):
+        neighbour_points.extend([i for node in l.nodes for i in node.get_deep_neighbours(p)])
 
-    nodes = [*nodes, *nodes_of_nodes, *nodes_of_nodes_2, *nodes_of_nodes_3]
+    nodes = [*nodes, *neighbour_points]
     values = [i.fitness() for i in nodes]
     o_values = [i.fitness() for i in o_nodes]
 
