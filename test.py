@@ -30,11 +30,13 @@ class TSSolutionWithSimpleNeighbour(ts_problem.TSSolution):
 
 l = lon.LON(p, TSSolutionWithSimpleNeighbour)
 print("generating nodes")
-l.generate_nodes(100, 100)
+l.generate_nodes(1000, 100)
 print("generated nodes")
 
 for n in l.nodes:
     print(n.s)
 
 print("generating edges")
-l.generate_edges(1000)
+l.generate_edges(20)
+
+print(l.node_edge_map)
