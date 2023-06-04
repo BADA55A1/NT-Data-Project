@@ -24,7 +24,7 @@ import lon
 
 class TSSolutionWithSimpleNeighbour(ts_problem.TSSolution):
     def __init__(self, problem, solution=None, neighbourhood_fn=ts_problem.neighbourhood_fn):
-        return super().__init__(problem,
+        super().__init__( problem,
                        solution=solution, neighbourhood_fn=neighbourhood_fn)
 
 
