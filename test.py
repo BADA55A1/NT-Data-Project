@@ -24,14 +24,18 @@ import lon
 
 class TSSolutionWithSimpleNeighbour(ts_problem.TSSolution):
     def __init__(self, problem, solution=None, neighbourhood_fn=ts_problem.neighbourhood_fn):
-        super().__init__( problem,
-                       solution=solution, neighbourhood_fn=neighbourhood_fn)
+        super().__init__(problem,
+                         solution=solution, neighbourhood_fn=neighbourhood_fn)
 
 
 l = lon.LON(p, TSSolutionWithSimpleNeighbour)
+print("generating nodes")
 l.generate_nodes(10, 10)
+print("generated nodes")
 
 for n in l.nodes:
     print(n.s)
 
+print("generating edges")
 l.generate_edges(5)
+print("generated nodes")
