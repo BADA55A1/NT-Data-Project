@@ -1,4 +1,5 @@
 import random
+from typing import List
 
 import numpy as np
 import copy
@@ -39,6 +40,9 @@ class TSSolution(problem.Solution):
     def __eq__(self, other):
         return (self.problem is other.problem) and (self.s == other.s).all()
 
+    def __hash__(self):
+        return self.problem, self.s
+
     def copy(self):
         return TSSolution(
             self.problem,
@@ -54,7 +58,7 @@ class TSSolution(problem.Solution):
         return path_distance
 
     # returns a list of 2-change neighbor solutions [list<TSSolution>]
-    def get_neighbors(self):
+    def get_neighbors(self) -> List['TSSolution']:
         return self.neighbourhood_fn(self)
 
     # checks if solution is better than it's neighbors [bool]
@@ -65,23 +69,31 @@ class TSSolution(problem.Solution):
                 return False
         return True
 
+    def get_deep_neighbours(self, search_depth):
+        neighbor_list = [self]
+        for i in range(search_depth):
+            new_neighbor = [j.get_neighbors() for j in neighbor_list]
+            neighbor_list = [item for sublist in new_neighbor for item in sublist]
+            # filter duplicates
+            neighbor_list = list(set(neighbor_list))
+
     # perform a 2-opt solution optimization
-    def get_2_opt(self):  # TODO write that it's simplified (just one step)
-        neighbors = self.get_neighbors()
-        solutions_fitness = [i.fittness() for i in neighbors]
+    def get_2_opt(self, search_depth=1):
+        neighbor_list = self.get_deep_neighbours(search_depth)
+        solutions_fitness = [i.fitness() for i in neighbor_list]
         max_fitness = max(solutions_fitness)
         if max_fitness > self.fitness():
             index_of_max_fitness = solutions_fitness.index(max_fitness)  # TODO not efficient
-            return neighbors[index_of_max_fitness]
+            return neighbor_list[index_of_max_fitness]
         else:
             return self
 
     # perform a simplifyed 2-opt solution optimization
     # (first-improving move is chosen)
-    def apply_1st_impr_2_opt(self):
-        neighbors = self.get_neighbors()
-        for i in neighbors:
-            if i.fittness() > self.fitness():
+    def apply_1st_impr_2_opt(self, search_depth=1):
+        neighbor_list = self.get_deep_neighbours(search_depth)
+        for i in neighbor_list:
+            if i.fitness() > self.fitness():
                 return i
         # otherwise
         return self
