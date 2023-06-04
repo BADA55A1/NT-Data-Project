@@ -51,28 +51,30 @@ l.generate_edges(10)
 
 print('edges:')
 for edge in l.edges:
-	print(
-		'  E(%d, %d), weight: %d' % 
-		(
-			l.nodes.index(edge.from_node),
-			l.nodes.index(edge.to_node),
-			edge.weight
-		)
-	)
+    print(
+        '  E(%d, %d), weight: %d' %
+        (
+            l.nodes.index(edge.from_node),
+            l.nodes.index(edge.to_node),
+            edge.weight
+        )
+    )
+
 
 def node_to_int(node):
     int_value = 0
     pow = 0
     for i in node.s:
-        int_value += float(i)*10.0**pow
-        pow+=1
+        int_value += float(i) * 10.0 ** pow
+        pow += 1
     return int_value
+
 
 def print_fittnes_landscape():
     nodes = l.nodes
     o_nodes = l.nodes
     neighbour_points = [i for node in l.nodes for i in node.get_neighbors()]
-    for p in range(1,20):
+    for p in range(1, 20):
         neighbour_points.extend([i for node in l.nodes for i in node.get_deep_neighbours(p)])
 
     nodes = [*nodes, *neighbour_points]
@@ -88,5 +90,6 @@ def print_fittnes_landscape():
     plt.plot(nodes, values)
     plt.plot(o_nodes, o_values, '*')
     plt.show()
+
 
 print_fittnes_landscape()
