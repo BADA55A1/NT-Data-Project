@@ -1,3 +1,6 @@
+from itertools import combinations
+
+
 def forward_run(current_solution):
     new_solution = [*current_solution]
     max_var = max(new_solution)
@@ -35,6 +38,18 @@ def dim_1_neighbourhood(current_solution):
             forward_run(current_solution)]
 
 
+def _two_opt_swap(route, i, j):
+    new_route = route[:i] + route[i:j + 1][::-1] + route[j + 1:]
+    return new_route
+
+
+def two_opt(route):
+    new_routes = []
+    for i in range(1, len(route) - 1):
+        for j in range(i + 1, len(route)):
+            new_routes.append(_two_opt_swap(route, i, j))
+    return new_routes
+
 def test():
     example_solution = [1, 2, 3, 5]  # is missing as is the starting and end point
     new_solution = (None, [*example_solution])
@@ -59,4 +74,4 @@ def test():
         if new_solution[0] is None:
             break
     print(solution_len)
-#test()
+# test()
