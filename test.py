@@ -67,6 +67,7 @@ for f in datafiles:
                     edge.weight
                 )
             )
+    utils.plot_graph(l.nodes, l.edges)
 
 '''
 def node_to_int(node):
@@ -107,4 +108,3 @@ def print_fittnes_landscape():
 
 
 
-utils.plot_graph(l.nodes, l.edges)
