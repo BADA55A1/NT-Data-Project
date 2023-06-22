@@ -46,8 +46,11 @@ def save_graph(nodes_raw, edges_raw, name):
     nx.draw_networkx_edges(G, pos, edge_color='b', width=2)
 
     # Draw edge labels
-    labels = nx.get_edge_attributes(G, 'weight')
-    nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)
+    labels = {g_node: f"{i}: {int(node.fitness())}" for (i, node), g_node in zip(enumerate(nodes_raw), G.nodes())}  # Convert nodes to string labels
+    nx.draw_networkx_labels(G, pos, labels=labels, font_size=12)
+
+    e_labels = nx.get_edge_attributes(G, 'weight')
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=e_labels)
 
     # Customize the plot
     plt.title("Graph with Edge Values")

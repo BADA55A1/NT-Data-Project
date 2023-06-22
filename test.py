@@ -53,8 +53,8 @@ for f in datafiles:
     print("generating nodes")
     l.generate_nodes(100, 10)
 
-    print("generating edges                    ")
-    l.generate_edges(10)
+    print("generating edges")
+    l.generate_edges(100)
 
     print('edges:                              ')
     for edge in l.edges:

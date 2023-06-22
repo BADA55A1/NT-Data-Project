@@ -42,7 +42,7 @@ class LON:
 		node_n = 0
 		for node in self.nodes:
 			node_n += 1
-			kick_moves = 2
+			kick_moves = 4
 			i = I_edges
 
 			optimum_leave = 0
