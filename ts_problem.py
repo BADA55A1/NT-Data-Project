@@ -2,6 +2,7 @@ import random
 from typing import List
 
 import numpy as np
+import math
 import copy
 
 import problem
@@ -13,16 +14,32 @@ DISTANCE_DEF_DATA_TYPE = int  # or float
 class TSProblem(problem.Problem):
     # Generates random TS problem distances, range [d_min, d_max],
     #   based on given cities number (size)
-    def __init__(self, size, d_min, d_max, dtype=DISTANCE_DEF_DATA_TYPE):
-        self.size = size
-        self.distances = np.random.randint(
-            d_min,
-            d_max,
-            (size, size),
-            dtype=dtype
-        )
-        for i in range(size):
-            self.distances[i][i] = 0
+    def __init__(self, data_path):
+        self.coordinates = []
+
+        with open(data_path) as f:
+            data_read = False
+            for line in f.readlines():
+                if 'EOF' in line:
+                    break
+                if data_read:
+                    line_sp = line.split(' ')
+                    self.coordinates.append(
+                        [float(line_sp[1]), float(line_sp[2])]
+                    )
+                else:
+                    if 'NODE_COORD_SECTION' in line:
+                        data_read = True
+        
+        self.size = len(self.coordinates)
+        self.distances = np.zeros( (self.size, self.size), dtype=float)
+
+        for i in range(self.size):
+            for j in range(self.size):
+                self.distances[i][j] = math.dist(
+                    self.coordinates[i],
+                    self.coordinates[j]
+                )
 
 
 class TSSolution(problem.Solution):

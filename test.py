@@ -3,19 +3,20 @@ import matplotlib.pyplot as plt
 
 import ts_problem
 
-p = ts_problem.TSProblem(5, 1, 40, dtype=int)
-print(p.distances)
+p = ts_problem.TSProblem('./data/2d/usa13509.tsp')
+# print(p.distances)
 
 sol = ts_problem.TSSolution(p)
-print(sol.s)
-print(sol.fitness())
+# print(sol.s)
+# print(sol.fitness())
 
 sol2 = ts_problem.TSSolution(p)
-print(sol == sol2)
+# print(sol == sol2)
 
 # test neighbour
 test_sol = ts_problem.TSSolution(p, neighbourhood_fn=ts_problem.neighbourhood_fn)
 test_neighbors = test_sol.get_neighbors()
+'''
 print("test neighbors")
 print(test_sol.s.tolist())
 print([i.s.tolist() for i in test_neighbors])
@@ -28,7 +29,7 @@ print("test opt")
 print(f"before result {test_sol.fitness()}")
 print(test_sol.get_2_opt())
 print(f"min result {test_sol.fitness()}")
-
+'''
 import lon
 
 
@@ -93,4 +94,4 @@ def print_fittnes_landscape():
     plt.show()
 
 
-print_fittnes_landscape()
+# print_fittnes_landscape()
