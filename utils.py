@@ -16,7 +16,7 @@ def get_num_sub_sinks(nodes_raw, edges_raw):
     subsinks = []
     for i, _ in enumerate(out_edges_per_node):
         for edge in out_edges_per_node[i]:
-            if edge.to_node.fitness() == 0:
+            if edge.to_node.fitness() > edge.from_node.fitness():
                 subsinks.append(i)
     return len(subsinks)
 
