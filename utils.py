@@ -15,16 +15,13 @@ def get_num_sub_sinks(nodes_raw, edges_raw):
     #check_if_subsink
     subsinks = []
     for i, _ in enumerate(out_edges_per_node):
+        is_subsink = True
         for edge in out_edges_per_node[i]:
             if edge.to_node.fitness() > edge.from_node.fitness():
-                subsinks.append(i)
+                is_subsink = True
+        if is_subsink:
+            subsinks.append(i)
     return len(subsinks)
-
-
-    nodes_c = 0
-    edges_c = len(edges_raw)
-
-    return 0
 
 
 def save_graph(nodes_raw, edges_raw, name):
