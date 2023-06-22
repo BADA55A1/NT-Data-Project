@@ -10,29 +10,25 @@ import utils
 
 datafiles = ['ulysses16.tsp', 'ulysses22.tsp']
 
+iterations = 10
+
 for f in datafiles:
-    print('running for %s...' % f)
-    p = ts_problem.TSProblem('./data/2d/' + f)
+    print('Running for %s...' % f)
+    edge_to_node = 0
+    num_sub_sinks = 0
+    escRate = 0
+    for i in range(iterations):
+        print('Batch iteration %d' % i)
+        p = ts_problem.TSProblem('./data/2d/' + f)
+        l = lon.LON(p, ts_problem.TSSolutionWithSimpleNeighbour)
+        l.generate_nodes(100, 10)
+        print("                                       \r", end='\r')
+        l.generate_edges(10)
+        print("                                       \r", end='\r')
+        edge_to_node += utils.get_edge_to_node(l.nodes, l.edges)
+        num_sub_sinks += utils.get_num_sub_sinks(l.nodes, l.edges)
+        escRate += l.escRate
 
-    l = lon.LON(p, ts_problem.TSSolutionWithSimpleNeighbour)
-    print("generating nodes")
-    l.generate_nodes(100, 10)
-
-    print("generating edges                    ")
-    l.generate_edges(10)
-
-    print('edges:                              ')
-    for edge in l.edges:
-        if edge.from_node != edge.to_node:
-            print(
-                '  E(%d, %d), weight: %d' %
-                (
-                    l.nodes.index(edge.from_node),
-                    l.nodes.index(edge.to_node),
-                    edge.weight
-                )
-            )
-    utils.save_graph(l.nodes, l.edges, f)
-    print(f"Edge to node: {utils.get_edge_to_node(l.nodes, l.edges)}")
-    print(f"Subsinks: {utils.get_num_sub_sinks(l.nodes, l.edges)}")
-    print(f"escRate: {l.escRate}")
+    print(f"Edge to node: {edge_to_node / iterations}")
+    print(f"Subsinks: {num_sub_sinks / iterations}")
+    print(f"escRate: {escRate / iterations}")
