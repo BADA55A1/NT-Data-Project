@@ -43,7 +43,7 @@ class TSSolutionWithSimpleNeighbour(ts_problem.TSSolution):
                          solution=solution, neighbourhood_fn=neighbourhood_fn)
 
 
-datafiles = ['ulysses16.tsp']  # , 'ulysses22.tsp']#os.listdir('data/2d')
+datafiles = ['ulysses16.tsp', 'ulysses22.tsp']#os.listdir('data/2d')
 
 for f in datafiles:
     print('running for %s...' % f)
@@ -51,7 +51,7 @@ for f in datafiles:
 
     l = lon.LON(p, TSSolutionWithSimpleNeighbour)
     print("generating nodes")
-    l.generate_nodes(10, 10)
+    l.generate_nodes(100, 10)
 
     print("generating edges")
     l.generate_edges(10)
@@ -68,6 +68,8 @@ for f in datafiles:
                 )
             )
     utils.save_graph(l.nodes, l.edges, f)
+    print(f"Edge to node: {utils.get_edge_to_node(l.nodes, l.edges)}")
+    print(f"Subsinks: {utils.get_num_sub_sinks(l.nodes, l.edges)}")
 
 '''
 def node_to_int(node):

@@ -1,6 +1,32 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
+def get_edge_to_node(nodes_raw, edges_raw):
+    nodes_c = len(nodes_raw)
+    edges_c = len(edges_raw)
+    return edges_c/nodes_c
+
+def get_num_sub_sinks(nodes_raw, edges_raw):
+    out_edges_per_node = {i:[] for i in nodes_raw}
+    for i, node in enumerate(nodes_raw):
+        for edge in edges_raw:
+            if edge.from_node == node:
+                out_edges_per_node[i].append(edge)
+    #check_if_subsink
+    subsinks = []
+    for i in out_edges_per_node:
+        for edge in out_edges_per_node[i]:
+            if edge.to_node.fitness() == 0:
+                subsinks.append(i)
+    return len(subsinks)
+
+
+    nodes_c = 0
+    edges_c = len(edges_raw)
+
+    return 0
+
+
 def save_graph(nodes_raw, edges_raw, name):
     # Create an empty graph
     G = nx.Graph()
@@ -19,7 +45,7 @@ def save_graph(nodes_raw, edges_raw, name):
 
     # Plot the graph
     pos = nx.spring_layout(G)  # Layout algorithm for node positioning
-    nx.draw_networkx_nodes(G, pos, node_color='r', node_size=500)
+    nx.draw_networkx_nodes(G, pos, node_color='r', node_size=50)
     nx.draw_networkx_edges(G, pos, edge_color='b', width=2)
 
     # Draw edge labels
@@ -32,3 +58,4 @@ def save_graph(nodes_raw, edges_raw, name):
     # Display the plot
     plt.axis('off')  # Turn off the axis labels
     plt.savefig(f"img/{name}.png")
+    plt.close()
