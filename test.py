@@ -51,7 +51,7 @@ for f in datafiles:
 
     l = lon.LON(p, TSSolutionWithSimpleNeighbour)
     print("generating nodes")
-    l.generate_nodes(100, 10)
+    l.generate_nodes(10, 10)
 
     print("generating edges")
     l.generate_edges(10)

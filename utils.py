@@ -7,14 +7,14 @@ def get_edge_to_node(nodes_raw, edges_raw):
     return edges_c/nodes_c
 
 def get_num_sub_sinks(nodes_raw, edges_raw):
-    out_edges_per_node = {i:[] for i in nodes_raw}
+    out_edges_per_node = [[] for i in nodes_raw]
     for i, node in enumerate(nodes_raw):
         for edge in edges_raw:
             if edge.from_node == node:
                 out_edges_per_node[i].append(edge)
     #check_if_subsink
     subsinks = []
-    for i in out_edges_per_node:
+    for i, _ in enumerate(out_edges_per_node):
         for edge in out_edges_per_node[i]:
             if edge.to_node.fitness() == 0:
                 subsinks.append(i)
