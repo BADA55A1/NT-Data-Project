@@ -59,8 +59,7 @@ class LON:
 					else:
 						self.edges.append(edge)
 				else:
-					kick_moves += 1
-
+					pass
 
 
 

@@ -1,6 +1,3 @@
-from itertools import combinations
-
-
 def forward_run(current_solution):
     new_solution = [*current_solution]
     max_var = max(new_solution)

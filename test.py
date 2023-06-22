@@ -36,7 +36,7 @@ print(f"min result {test_sol.fitness()}")
 
 
 class TSSolutionWithSimpleNeighbour(ts_problem.TSSolution):
-    def __init__(self, problem, solution=None, neighbourhood_fn=ts_problem.neighbourhood_fn):
+    def __init__(self, problem, solution=None, neighbourhood_fn=ts_problem.neighbourhood_fn_2_opt):
         super().__init__(problem,
                          solution=solution, neighbourhood_fn=neighbourhood_fn)
 

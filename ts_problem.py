@@ -138,3 +138,15 @@ def neighbourhood_fn(ts_solution: TSSolution):
                                       neighbourhood_fn=ts_solution.neighbourhood_fn) for raw_solution
                            in raw_solutions]
     return neighbour_solutions
+
+def neighbourhood_fn_2_opt(ts_solution: TSSolution):
+    first_element = int(ts_solution.s.tolist()[0])
+    raw_solutions = neighbourhood.two_opt(
+        ts_solution.s.tolist()[1:])  # removing 1st el
+    raw_solutions = [[first_element, *no_first_el_solution] for no_first_el_solution in raw_solutions if
+                     no_first_el_solution is not None]
+
+    neighbour_solutions = [TSSolution(problem=ts_solution.problem, solution=np.asarray(raw_solution),
+                                      neighbourhood_fn=ts_solution.neighbourhood_fn) for raw_solution
+                           in raw_solutions]
+    return neighbour_solutions
