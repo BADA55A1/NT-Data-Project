@@ -10,6 +10,7 @@ import neighbourhood
 
 DISTANCE_DEF_DATA_TYPE = int  # or float
 
+random.seed(1)
 
 class TSProblem(problem.Problem):
     # Generates random TS problem distances, range [d_min, d_max],

@@ -34,19 +34,21 @@ class LON:
 				if s.is_local_optimum() and not(s in self.nodes):
 					self.nodes.append(s)
 					break
-		print()
 
 	def generate_edges(self, I_edges):
 		self.node_edge_map = np.zeros((len(self.nodes), len(self.nodes)))
 		escRate_t = 0
 		escRateLeave_t = 0
+		node_n = 0
 		for node in self.nodes:
+			node_n += 1
 			kick_moves = 2
 			i = I_edges
 
 			optimum_leave = 0
 			optimum_stay = 0
 			while i > 0:
+				print('generating edge S:%d, I:%d' % (node_n, i), end='\r')
 				i -= 1
 
 				n = node.copy()

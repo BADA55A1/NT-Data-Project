@@ -53,10 +53,10 @@ for f in datafiles:
     print("generating nodes")
     l.generate_nodes(100, 10)
 
-    print("generating edges")
+    print("generating edges                    ")
     l.generate_edges(10)
 
-    print('edges:')
+    print('edges:                              ')
     for edge in l.edges:
         if edge.from_node != edge.to_node:
             print(
