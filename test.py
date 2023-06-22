@@ -8,6 +8,8 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 # print(p.distances)
+import utils
+
 '''
 sol = ts_problem.TSSolution(p)
 # print(sol.s)
@@ -105,4 +107,4 @@ def print_fittnes_landscape():
 
 
 
-plot_graph(l.nodes, l.edges)
+utils.plot_graph(l.nodes, l.edges)
