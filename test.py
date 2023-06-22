@@ -41,7 +41,7 @@ class TSSolutionWithSimpleNeighbour(ts_problem.TSSolution):
                          solution=solution, neighbourhood_fn=neighbourhood_fn)
 
 
-datafiles = os.listdir('data/2d')
+datafiles = ['ulysses16.tsp', 'u574.tsp']#os.listdir('data/2d')
 
 for f in datafiles:
     print('running for %s...' % f)
