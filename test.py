@@ -70,6 +70,7 @@ for f in datafiles:
     utils.save_graph(l.nodes, l.edges, f)
     print(f"Edge to node: {utils.get_edge_to_node(l.nodes, l.edges)}")
     print(f"Subsinks: {utils.get_num_sub_sinks(l.nodes, l.edges)}")
+    print(f"escRate: {l.escRate}")
 
 '''
 def node_to_int(node):

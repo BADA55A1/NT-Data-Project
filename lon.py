@@ -21,6 +21,8 @@ class LON:
 		self.node_edge_map = None
 		self.edges = []
 		self.connections_to_undefined_nodes = 0
+		self.escRate = 0
+		self.escRateLeave = 0
 
 	def generate_nodes(self, I_nodes, I_attempts):
 		for i_n in range(I_nodes):
@@ -36,9 +38,14 @@ class LON:
 
 	def generate_edges(self, I_edges):
 		self.node_edge_map = np.zeros((len(self.nodes), len(self.nodes)))
+		escRate_t = 0
+		escRateLeave_t = 0
 		for node in self.nodes:
 			kick_moves = 2
 			i = I_edges
+
+			optimum_leave = 0
+			optimum_stay = 0
 			while i > 0:
 				i -= 1
 
@@ -46,12 +53,17 @@ class LON:
 				n = n.get_random_kick(kick_moves)
 				n = n.get_1st_impr_2_opt()
 
+				if n == node:
+					optimum_stay += 1
+				else:
+					optimum_leave += 1
+
 				if n in self.nodes:
 					if node != n:
-						print(
-							'found edge s(%d, %d), kick moves: %d' %
-							(self.nodes.index(node), self.nodes.index(n), kick_moves)
-						)
+						# print(
+						# 	'found edge s(%d, %d), kick moves: %d' %
+						# 	(self.nodes.index(node), self.nodes.index(n), kick_moves)
+						# )
 						self.node_edge_map[self.nodes.index(node)][self.nodes.index(n)] += 1
 
 						# Edge class
@@ -62,7 +74,10 @@ class LON:
 							self.edges.append(edge)
 				else:
 					self.connections_to_undefined_nodes += 1
-
+			escRate_t += optimum_leave / (optimum_leave + optimum_stay)
+			escRateLeave_t += optimum_leave
+		self.escRate = escRate_t / len(self.nodes)
+		self.escRateLeave = escRateLeave_t / len(self.nodes)
 
 
 
