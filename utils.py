@@ -1,7 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
-def plot_graph(nodes_raw, edges_raw):
+def save_graph(nodes_raw, edges_raw, name):
     # Create an empty graph
     G = nx.Graph()
 
@@ -31,4 +31,4 @@ def plot_graph(nodes_raw, edges_raw):
 
     # Display the plot
     plt.axis('off')  # Turn off the axis labels
-    plt.show()
+    plt.savefig(f"img/{name}.png")

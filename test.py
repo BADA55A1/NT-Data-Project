@@ -67,7 +67,7 @@ for f in datafiles:
                     edge.weight
                 )
             )
-    utils.plot_graph(l.nodes, l.edges)
+    utils.save_graph(l.nodes, l.edges, f)
 
 '''
 def node_to_int(node):
