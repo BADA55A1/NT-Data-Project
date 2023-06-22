@@ -36,7 +36,7 @@ class LON:
 	def generate_edges(self, I_edges):
 		self.node_edge_map = np.zeros((len(self.nodes), len(self.nodes)))
 		for node in self.nodes:
-			kick_moves = 1
+			kick_moves = 2
 			i = I_edges
 			while i > 0:
 				i -= 1
