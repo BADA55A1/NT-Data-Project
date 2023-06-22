@@ -46,10 +46,11 @@ class LON:
 				n = n.get_1st_impr_2_opt()
 
 				if n in self.nodes:
-					print(
-						'found edge s(%d, %d), kick moves: %d' %
-						(self.nodes.index(node), self.nodes.index(n), kick_moves)
-					)
+					if node != n:
+						print(
+							'found edge s(%d, %d), kick moves: %d' %
+							(self.nodes.index(node), self.nodes.index(n), kick_moves)
+						)
 					self.node_edge_map[self.nodes.index(node)][self.nodes.index(n)] += 1
 
 					# Edge class

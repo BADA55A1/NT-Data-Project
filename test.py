@@ -41,7 +41,7 @@ class TSSolutionWithSimpleNeighbour(ts_problem.TSSolution):
                          solution=solution, neighbourhood_fn=neighbourhood_fn)
 
 
-datafiles = ['ulysses16.tsp', 'u574.tsp']#os.listdir('data/2d')
+datafiles = ['ulysses16.tsp', 'ulysses22.tsp']#os.listdir('data/2d')
 
 for f in datafiles:
     print('running for %s...' % f)
@@ -49,21 +49,22 @@ for f in datafiles:
 
     l = lon.LON(p, TSSolutionWithSimpleNeighbour)
     print("generating nodes")
-    l.generate_nodes(5, 10)
+    l.generate_nodes(100, 10)
 
     print("generating edges")
     l.generate_edges(10)
 
     print('edges:')
     for edge in l.edges:
-        print(
-            '  E(%d, %d), weight: %d' %
-            (
-                l.nodes.index(edge.from_node),
-                l.nodes.index(edge.to_node),
-                edge.weight
+        if edge.from_node != edge.to_node:
+            print(
+                '  E(%d, %d), weight: %d' %
+                (
+                    l.nodes.index(edge.from_node),
+                    l.nodes.index(edge.to_node),
+                    edge.weight
+                )
             )
-        )
 
 '''
 def node_to_int(node):
