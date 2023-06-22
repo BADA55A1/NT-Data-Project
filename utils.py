@@ -11,7 +11,7 @@ def plot_graph(nodes_raw, edges_raw):
         nodes_raw.index(edge.from_node),
         nodes_raw.index(edge.to_node),
         {"weight": edge.weight}
-    ) for edge in enumerate(edges_raw)]
+    ) for edge in edges_raw]
     G.add_nodes_from(nodes)
 
     # Add edges with values

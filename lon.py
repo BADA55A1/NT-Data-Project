@@ -20,6 +20,7 @@ class LON:
 		self.nodes = []
 		self.node_edge_map = None
 		self.edges = []
+		self.connections_to_undefined_nodes = 0
 
 	def generate_nodes(self, I_nodes, I_attempts):
 		for i_n in range(I_nodes):
@@ -51,16 +52,16 @@ class LON:
 							'found edge s(%d, %d), kick moves: %d' %
 							(self.nodes.index(node), self.nodes.index(n), kick_moves)
 						)
-					self.node_edge_map[self.nodes.index(node)][self.nodes.index(n)] += 1
+						self.node_edge_map[self.nodes.index(node)][self.nodes.index(n)] += 1
 
-					# Edge class
-					edge = Edge(node, n)
-					if edge in self.edges:
-						self.edges[self.edges.index(edge)].weight_increment()
-					else:
-						self.edges.append(edge)
+						# Edge class
+						edge = Edge(node, n)
+						if edge in self.edges:
+							self.edges[self.edges.index(edge)].weight_increment()
+						else:
+							self.edges.append(edge)
 				else:
-					pass
+					self.connections_to_undefined_nodes += 1
 
 
 
