@@ -1,13 +1,15 @@
 #!/usr/bin/env python
-#import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import os
 
 import ts_problem
 import lon
-
-
+import networkx as nx
+import matplotlib.pyplot as plt
 
 # print(p.distances)
+import utils
+
 '''
 sol = ts_problem.TSSolution(p)
 # print(sol.s)
@@ -41,7 +43,7 @@ class TSSolutionWithSimpleNeighbour(ts_problem.TSSolution):
                          solution=solution, neighbourhood_fn=neighbourhood_fn)
 
 
-datafiles = ['ulysses16.tsp', 'ulysses22.tsp']#os.listdir('data/2d')
+datafiles = ['ulysses16.tsp']  # , 'ulysses22.tsp']#os.listdir('data/2d')
 
 for f in datafiles:
     print('running for %s...' % f)
@@ -65,6 +67,7 @@ for f in datafiles:
                     edge.weight
                 )
             )
+    utils.plot_graph(l.nodes, l.edges)
 
 '''
 def node_to_int(node):
@@ -101,3 +104,6 @@ def print_fittnes_landscape():
 
 # print_fittnes_landscape()
 '''
+
+
+
