@@ -1,11 +1,14 @@
 #!/usr/bin/env python
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
+import os
 
 import ts_problem
+import lon
 
-p = ts_problem.TSProblem('./data/2d/usa13509.tsp')
+
+
 # print(p.distances)
-
+'''
 sol = ts_problem.TSSolution(p)
 # print(sol.s)
 # print(sol.fitness())
@@ -16,7 +19,7 @@ sol2 = ts_problem.TSSolution(p)
 # test neighbour
 test_sol = ts_problem.TSSolution(p, neighbourhood_fn=ts_problem.neighbourhood_fn)
 test_neighbors = test_sol.get_neighbors()
-'''
+
 print("test neighbors")
 print(test_sol.s.tolist())
 print([i.s.tolist() for i in test_neighbors])
@@ -30,7 +33,6 @@ print(f"before result {test_sol.fitness()}")
 print(test_sol.get_2_opt())
 print(f"min result {test_sol.fitness()}")
 '''
-import lon
 
 
 class TSSolutionWithSimpleNeighbour(ts_problem.TSSolution):
@@ -39,29 +41,31 @@ class TSSolutionWithSimpleNeighbour(ts_problem.TSSolution):
                          solution=solution, neighbourhood_fn=neighbourhood_fn)
 
 
-l = lon.LON(p, TSSolutionWithSimpleNeighbour)
-print("generating nodes")
-l.generate_nodes(5, 10)
-print("generated nodes")
+datafiles = os.listdir('data/2d')
 
-# for n in l.nodes:
-#     print(n.s)
+for f in datafiles:
+    print('running for %s...' % f)
+    p = ts_problem.TSProblem('./data/2d/' + f)
 
-print("generating edges")
-l.generate_edges(10)
+    l = lon.LON(p, TSSolutionWithSimpleNeighbour)
+    print("generating nodes")
+    l.generate_nodes(5, 10)
 
-print('edges:')
-for edge in l.edges:
-    print(
-        '  E(%d, %d), weight: %d' %
-        (
-            l.nodes.index(edge.from_node),
-            l.nodes.index(edge.to_node),
-            edge.weight
+    print("generating edges")
+    l.generate_edges(10)
+
+    print('edges:')
+    for edge in l.edges:
+        print(
+            '  E(%d, %d), weight: %d' %
+            (
+                l.nodes.index(edge.from_node),
+                l.nodes.index(edge.to_node),
+                edge.weight
+            )
         )
-    )
 
-
+'''
 def node_to_int(node):
     int_value = 0
     pow = 0
@@ -95,3 +99,4 @@ def print_fittnes_landscape():
 
 
 # print_fittnes_landscape()
+'''
