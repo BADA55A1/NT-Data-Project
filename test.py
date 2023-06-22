@@ -8,8 +8,6 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 # print(p.distances)
-import utils
-
 '''
 sol = ts_problem.TSSolution(p)
 # print(sol.s)
@@ -51,7 +49,7 @@ for f in datafiles:
 
     l = lon.LON(p, TSSolutionWithSimpleNeighbour)
     print("generating nodes")
-    l.generate_nodes(100, 10)
+    l.generate_nodes(10, 10)
 
     print("generating edges")
     l.generate_edges(10)
@@ -67,7 +65,6 @@ for f in datafiles:
                     edge.weight
                 )
             )
-    utils.plot_graph(l.nodes, l.edges)
 
 '''
 def node_to_int(node):
@@ -107,3 +104,5 @@ def print_fittnes_landscape():
 
 
 
+
+plot_graph(l.nodes, l.edges)
