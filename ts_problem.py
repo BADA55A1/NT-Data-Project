@@ -152,3 +152,8 @@ def neighbourhood_fn_2_opt(ts_solution: TSSolution):
                                       neighbourhood_fn=ts_solution.neighbourhood_fn) for raw_solution
                            in raw_solutions]
     return neighbour_solutions
+
+class TSSolutionWithSimpleNeighbour(TSSolution):
+    def __init__(self, problem, solution=None, neighbourhood_fn=neighbourhood_fn_2_opt):
+        super().__init__(problem,
+                         solution=solution, neighbourhood_fn=neighbourhood_fn)

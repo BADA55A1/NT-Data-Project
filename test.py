@@ -36,20 +36,13 @@ print(test_sol.get_2_opt())
 print(f"min result {test_sol.fitness()}")
 '''
 
-
-class TSSolutionWithSimpleNeighbour(ts_problem.TSSolution):
-    def __init__(self, problem, solution=None, neighbourhood_fn=ts_problem.neighbourhood_fn_2_opt):
-        super().__init__(problem,
-                         solution=solution, neighbourhood_fn=neighbourhood_fn)
-
-
 datafiles = ['ulysses16.tsp', 'ulysses22.tsp']#os.listdir('data/2d')
 
 for f in datafiles:
     print('running for %s...' % f)
     p = ts_problem.TSProblem('./data/2d/' + f)
 
-    l = lon.LON(p, TSSolutionWithSimpleNeighbour)
+    l = lon.LON(p, ts_problem.TSSolutionWithSimpleNeighbour)
     print("generating nodes")
     l.generate_nodes(100, 10)
 
